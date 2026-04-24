@@ -19,13 +19,34 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...rest
 }) => {
-  const base = 'inline-flex items-center gap-2 font-inter font-semibold rounded-lg transition-all duration-150 cursor-pointer';
+  const base = 'inline-flex items-center gap-2 font-inter font-semibold rounded-xl transition-all duration-200 cursor-pointer select-none active:scale-95';
 
   const variants = {
-    primary: 'bg-accent text-white hover:bg-accent-hover',
-    ghost:   'border-2 border-accent text-accent hover:bg-accent-light',
-    danger:  'bg-danger text-white hover:bg-red-600',
-    outline: 'border-2 border-border text-text-primary hover:border-accent hover:text-accent',
+    // Tombol utama — hijau (selected state)
+    primary:
+      'bg-gradient-to-r from-green-500 to-emerald-600 text-white ' +
+      'shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 ' +
+      'hover:brightness-110 hover:scale-[1.03] border border-white/10',
+
+    // Tombol ghost — biru solid
+    ghost:
+      'bg-blue-500 ' +
+      'border-2 border-blue-400 text-white ' +
+      'hover:bg-blue-600 ' +
+      'hover:border-blue-500 hover:scale-[1.03] ' +
+      'shadow-md shadow-blue-500/40 hover:shadow-blue-500/60',
+
+    // Tombol bahaya — gradient merah
+    danger:
+      'bg-gradient-to-r from-rose-500 to-red-600 text-white ' +
+      'shadow-lg shadow-rose-500/40 hover:shadow-xl hover:shadow-rose-500/60 ' +
+      'hover:brightness-110 hover:scale-[1.03] border border-white/10',
+
+    // Tombol outline — biru solid
+    outline:
+      'bg-blue-600 border-2 border-blue-600 text-white ' +
+      'hover:bg-blue-700 hover:border-blue-700 hover:scale-[1.02] ' +
+      'shadow-md shadow-blue-500/40 hover:shadow-lg hover:shadow-blue-500/60',
   };
 
   const sizes = {
