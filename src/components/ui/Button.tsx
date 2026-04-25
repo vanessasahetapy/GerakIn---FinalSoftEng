@@ -24,8 +24,8 @@ export const Button: React.FC<ButtonProps> = ({
   const variants = {
     // Tombol utama — hijau (selected state)
     primary:
-      'bg-gradient-to-r from-green-500 to-emerald-600 text-white ' +
-      'shadow-lg shadow-green-500/40 hover:shadow-xl hover:shadow-green-500/60 ' +
+      'bg-gradient-to-r from-blue-600 to-indigo-600 text-white ' +
+      'shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/60 ' +
       'hover:brightness-110 hover:scale-[1.03] border border-white/10',
 
     // Tombol ghost — biru solid

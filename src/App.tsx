@@ -8,6 +8,7 @@ import { DashboardLayout } from './components/layout/DashboardLayout';
 // Public
 import { LandingPage } from './pages/LandingPage';
 import { LoginPage } from './pages/LoginPage';
+import { RegisterPage } from './pages/RegisterPage';
 
 // User
 import { UserDashboard } from './pages/user/UserDashboard';
@@ -39,6 +40,7 @@ const ProtectedRoute = ({ allowedRoles }: { allowedRoles: string[] }) => {
 const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
   { path: '/login', element: <LoginPage /> },
+  { path: '/register', element: <RegisterPage /> },
   
   // User Routes
   {

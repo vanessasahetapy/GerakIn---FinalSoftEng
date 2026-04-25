@@ -12,10 +12,10 @@ import { api } from '../../../convex/_generated/api';
 import { useAuthStore } from '../../store/authStore';
 
 const QUICK_ACTIONS = [
-  { label:'Book Trainer', icon:<BookOpen size={22}/>,  path:'/user/booking',  color:'bg-accent/10 text-accent' },
-  { label:'My Schedule',  icon:<Calendar size={22}/>,  path:'/user/schedule', color:'bg-blue-500/10 text-blue-400'   },
-  { label:'My Habits',    icon:<Heart size={22}/>,     path:'/user/habits',   color:'bg-green-500/10 text-green-400' },
-  { label:'History',      icon:<Clock size={22}/>,     path:'/user/history',  color:'bg-amber-500/10 text-amber-400' },
+  { label:'Pesan Pelatih', icon:<BookOpen size={22}/>,  path:'/user/booking',  color:'bg-accent/10 text-accent' },
+  { label:'Jadwal Saya',  icon:<Calendar size={22}/>,  path:'/user/schedule', color:'bg-blue-500/10 text-blue-400'   },
+  { label:'Kebiasaan Saya', icon:<Heart size={22}/>,     path:'/user/habits',   color:'bg-green-500/10 text-green-400' },
+  { label:'Riwayat',      icon:<Clock size={22}/>,     path:'/user/history',  color:'bg-amber-500/10 text-amber-400' },
 ];
 
 export const UserDashboard: React.FC = () => {
@@ -37,10 +37,10 @@ export const UserDashboard: React.FC = () => {
     <div className="space-y-8">
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total Sessions"  value={stats.totalSessions} numeric={stats.totalSessions} trend={stats.trends?.sessions}   delay={0}    />
-        <StatCard label="This Week"        value={stats.thisWeek}      numeric={stats.thisWeek}      trend={stats.trends?.week}       delay={0.07} />
-        <StatCard label="Current Streak"   value={`${stats.streak} days`}                           trend={stats.trends?.streak}     delay={0.14} />
-        <StatCard label="Next Session"     value={stats.nextSessionDate}                                          delay={0.21} />
+        <StatCard label="Total Sesi"     value={stats.totalSessions} numeric={stats.totalSessions} trend={stats.trends?.sessions}   delay={0}    />
+        <StatCard label="Minggu Ini"     value={stats.thisWeek}      numeric={stats.thisWeek}      trend={stats.trends?.week}       delay={0.07} />
+        <StatCard label="Sesi Beruntun"  value={`${stats.streak} hari`}                           trend={stats.trends?.streak}     delay={0.14} />
+        <StatCard label="Sesi Berikutnya" value={stats.nextSessionDate}                                          delay={0.21} />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -48,16 +48,16 @@ export const UserDashboard: React.FC = () => {
         <Card animate className="lg:col-span-2 p-6" hover={false}>
           <div className="flex items-center justify-between mb-6">
             <div className="section-divider">
-              <h2 className="section-title text-xl">Weekly Activity</h2>
+              <h2 className="section-title text-xl">Aktivitas Mingguan</h2>
             </div>
-            <span className="text-xs text-text-secondary font-inter">Live metrics from database</span>
+            <span className="text-xs text-text-secondary font-inter">Metrik langsung dari database</span>
           </div>
           <ActivityBarChart data={pulse} xKey="day" dataKey="sessions" height={220} />
         </Card>
 
         {/* Upcoming session */}
         <Card accent animate delay={0.1} className="flex flex-col gap-4">
-          <p className="card-label">Upcoming Session</p>
+          <p className="card-label">Sesi Mendatang</p>
           {upcoming ? (
             <>
               <div className="flex items-center gap-3">
@@ -70,21 +70,21 @@ export const UserDashboard: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2 text-sm font-inter text-text-secondary">
-                <div className="flex justify-between"><span>Date</span><span className="font-medium text-text-primary">{upcoming.date}</span></div>
-                <div className="flex justify-between"><span>Time</span><span className="font-medium text-text-primary">{upcoming.time}</span></div>
-                <div className="flex justify-between"><span>Duration</span><span className="font-medium text-text-primary">{upcoming.duration} min</span></div>
+                <div className="flex justify-between"><span>Tanggal</span><span className="font-medium text-text-primary">{upcoming.date}</span></div>
+                <div className="flex justify-between"><span>Waktu</span><span className="font-medium text-text-primary">{upcoming.time}</span></div>
+                <div className="flex justify-between"><span>Durasi</span><span className="font-medium text-text-primary">{upcoming.duration} menit</span></div>
               </div>
               <Badge status={upcoming.status} />
             </>
           ) : (
             <div className="flex flex-col items-center justify-center py-10 opacity-50">
               <Calendar size={32} className="mb-2" />
-              <p className="text-xs font-bold uppercase tracking-widest">No Sessions Booked</p>
+              <p className="text-xs font-bold uppercase tracking-widest">Tidak Ada Sesi Dipesan</p>
             </div>
           )}
           <button onClick={() => navigate('/user/schedule')}
             className="flex items-center gap-2 text-sm text-accent font-semibold hover:underline mt-auto">
-            View Schedule <ChevronRight size={14}/>
+            Lihat Jadwal <ChevronRight size={14}/>
           </button>
         </Card>
       </div>
@@ -93,7 +93,7 @@ export const UserDashboard: React.FC = () => {
       <div>
         <div className="flex items-center gap-2 mb-6">
           <div className="w-1 h-6 bg-accent rounded-full" />
-          <h2 className="font-bold text-lg uppercase tracking-tight">Quick Actions</h2>
+          <h2 className="font-bold text-lg uppercase tracking-tight">Tindakan Cepat</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {QUICK_ACTIONS.map((a, i) => (
@@ -112,13 +112,13 @@ export const UserDashboard: React.FC = () => {
       <Card animate delay={0.2} hover={false}>
         <div className="flex items-center justify-between mb-5">
           <div className="section-divider">
-            <h2 className="section-title text-xl">Recent Bookings</h2>
+            <h2 className="section-title text-xl">Pemesanan Terbaru</h2>
           </div>
-          <button onClick={() => navigate('/user/history')} className="text-xs text-accent font-semibold hover:underline transition-all">View All</button>
+          <button onClick={() => navigate('/user/history')} className="text-xs text-accent font-semibold hover:underline transition-all">Lihat Semua</button>
         </div>
         <div className="space-y-3">
           {recent.length === 0 ? (
-            <p className="text-center py-8 text-text-secondary italic text-sm">No recent activity found.</p>
+            <p className="text-center py-8 text-text-secondary italic text-sm">Tidak ada aktivitas terbaru.</p>
           ) : (
             recent.map(b => (
               <div key={b._id} className="flex items-center gap-4 p-3 rounded-xl hover:bg-bg-section transition-all group border border-transparent hover:border-border/40">

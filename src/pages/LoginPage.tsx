@@ -2,14 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Zap, User, Lock, ArrowRight, Shield, Globe } from 'lucide-react';
+import { Zap, User, Lock, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 
 const QUOTES = [
-  { text: "Consistency is more important than perfection in fitness.", author: "Marcus Reid, Head Coach" },
-  { text: "Your health is an investment, not an expense.", author: "Lena Fischer, Wellness Lead" },
+  { text: "Konsistensi lebih penting daripada kesempurnaan dalam kebugaran.", author: "Marcus Reid, Kepala Pelatih" },
+  { text: "Kesehatan Anda adalah investasi, bukan pengeluaran.", author: "Lena Fischer, Pemimpin Wellness" },
 ];
 
 export const LoginPage: React.FC = () => {
@@ -57,11 +57,11 @@ export const LoginPage: React.FC = () => {
         });
         navigate(`/${user.role}/dashboard`);
       } else {
-        setError('Invalid credentials. Check name/password.');
+        setError('Kredensial tidak valid. Periksa nama/kata sandi.');
       }
     } catch (err) {
       console.error(err);
-      setError('An error occurred during sign in.');
+      setError('Terjadi kesalahan saat masuk.');
     } finally {
       setIsLoggingIn(false);
     }
@@ -83,12 +83,12 @@ export const LoginPage: React.FC = () => {
             <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/20 group-hover:scale-110 transition-all">
               <Zap size={20} className="text-white" fill="white" />
             </div>
-            <span className="font-bold text-xl tracking-tight uppercase font-barlow italic text-white group-hover:text-accent transition-colors">FitHabit <span className="text-accent">Trainer</span></span>
+            <span className="font-bold text-xl tracking-tight uppercase font-barlow italic text-white group-hover:text-accent transition-colors">Gerak<span className="text-accent">In</span></span>
           </div>
 
           <div className="mb-10 text-center md:text-left">
-            <h1 className="text-4xl font-black italic uppercase font-barlow tracking-tight text-white mb-2">Access Pulse</h1>
-            <p className="text-text-light opacity-60 text-sm">Enter the athletic infrastructure zone.</p>
+            <h1 className="text-4xl font-black italic uppercase font-barlow tracking-tight text-white mb-2">Masuk ke Sistem</h1>
+            <p className="text-text-light opacity-60 text-sm">Masuk ke zona infrastruktur atletik.</p>
           </div>
 
           {error && (
@@ -100,7 +100,7 @@ export const LoginPage: React.FC = () => {
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-text-light uppercase tracking-widest ml-1">Identity UID / Email</label>
+                <label className="text-[10px] font-bold text-text-light uppercase tracking-widest ml-1">Identitas UID / Email</label>
                 <div className="relative group">
                   <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-light group-focus-within:text-accent transition-colors" />
                   <input 
@@ -108,15 +108,15 @@ export const LoginPage: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-bg-surface border border-white/5 rounded-xl py-4 pl-12 pr-4 text-sm text-white focus:border-accent/40 outline-none transition-all"
-                    placeholder="Enter Name (e.g. Jechris)"
+                    placeholder="Masukkan Nama (contoh: Jechris)"
                     required
                   />
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between px-1">
-                  <label className="text-[10px] font-bold text-text-light uppercase tracking-widest">Secret Protocol</label>
-                  <button type="button" className="text-[10px] font-bold text-accent uppercase tracking-widest hover:underline">Forgot?</button>
+                  <label className="text-[10px] font-bold text-text-light uppercase tracking-widest">Protokol Rahasia</label>
+                  <button type="button" className="text-[10px] font-bold text-accent uppercase tracking-widest hover:underline">Lupa?</button>
                 </div>
                 <div className="relative group">
                   <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-light group-focus-within:text-accent transition-colors" />
@@ -125,7 +125,7 @@ export const LoginPage: React.FC = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-bg-surface border border-white/5 rounded-xl py-4 pl-12 pr-4 text-sm text-white focus:border-accent/40 outline-none transition-all"
-                    placeholder="Enter Password"
+                    placeholder="Masukkan Kata Sandi"
                     required
                   />
                 </div>
@@ -137,26 +137,24 @@ export const LoginPage: React.FC = () => {
               disabled={isLoggingIn}
               className="w-full bg-accent text-white py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] shadow-xl shadow-accent/30 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
             >
-              {isLoggingIn ? 'Authenticating...' : 'Sign In to Pulse'} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              {isLoggingIn ? 'Mengautentikasi...' : 'Masuk ke Sistem'} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
 
-
-            <div className="relative h-px bg-white/5 my-10">
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-bg-base px-4 text-[10px] font-bold text-text-light uppercase tracking-widest">Or connect via</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <button type="button" className="flex items-center justify-center gap-3 bg-bg-surface border border-white/5 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest text-text-light hover:bg-white/5 transition-all">
-                <Globe size={16} /> Google
-              </button>
-              <button type="button" className="flex items-center justify-center gap-3 bg-bg-surface border border-white/5 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest text-text-light hover:bg-white/5 transition-all">
-                <Shield size={16} /> Identity
-              </button>
-            </div>
           </form>
 
+          <p className="mt-8 text-center text-xs text-text-light opacity-60">
+            Belum punya akun?{' '}
+            <button 
+              type="button" 
+              onClick={() => navigate('/register')}
+              className="text-accent font-bold hover:underline"
+            >
+              Daftar di sini
+            </button>
+          </p>
+
           <p className="mt-12 text-center text-[10px] font-bold text-text-light uppercase tracking-widest opacity-40">
-            System Protected by FitHabit Security Engine
+            Sistem Dilindungi oleh GerakIn Security Engine
           </p>
         </div>
       </motion.div>
@@ -179,9 +177,9 @@ export const LoginPage: React.FC = () => {
           
           <div className="mt-20 grid grid-cols-3 gap-8 text-center border-t border-white/10 pt-12">
             {[
-              {v: portalData?.trainerCount || '180+', l:'Trainers'},
-              {v: portalData?.athleteCount || '2.4K', l:'Users'},
-              {v: portalData?.retention || '98%', l:'Success'}
+            {v: portalData?.trainerCount || '180+', l:'Pelatih'},
+            {v: portalData?.athleteCount || '2.4K', l:'Pengguna'},
+            {v: portalData?.retention || '98%', l:'Keberhasilan'}
             ].map(s=>(
               <div key={s.l}>
                 <p className="font-barlow font-black text-3xl italic">{s.v}</p>

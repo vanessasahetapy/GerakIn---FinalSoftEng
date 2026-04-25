@@ -33,8 +33,8 @@ export const TimeSlotGrid: React.FC<TimeSlotGridProps> = ({
             className={clsx(
               'px-2 py-2.5 rounded-lg text-sm font-inter font-medium border-2 transition-all duration-150',
               isSelected    && 'bg-accent border-accent text-white',
-              isUnavailable && 'bg-bg-section border-bg-section text-text-light cursor-not-allowed line-through',
-              !isSelected && !isUnavailable && 'bg-white border-border text-text-primary hover:border-accent hover:text-accent',
+              isUnavailable && 'bg-bg-section/30 border-transparent text-text-muted cursor-not-allowed line-through opacity-40',
+              !isSelected && !isUnavailable && 'bg-bg-surface/50 border-border/40 text-text-primary hover:border-accent hover:bg-bg-surface hover:text-accent',
             )}
           >
             {slot}

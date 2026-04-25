@@ -13,7 +13,7 @@ export const TopBar: React.FC<TopBarProps> = ({ title }) => {
   const [notifOpen, setNotifOpen] = useState(false);
 
   const hour = new Date().getHours();
-  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const greeting = hour < 12 ? 'Selamat pagi' : hour < 17 ? 'Selamat siang' : 'Selamat malam';
 
   return (
     <header className="h-16 bg-bg-base border-b border-border flex items-center px-6 gap-4 sticky top-0 z-20">
@@ -31,22 +31,13 @@ export const TopBar: React.FC<TopBarProps> = ({ title }) => {
                 animate={{ scale: 1,   opacity: 1 }}
                 className="flex items-center gap-1.5 bg-accent-light text-accent px-3 py-1 rounded-full text-xs font-inter font-semibold"
               >
-                🔥 {streak} Day Streak
+                🔥 {streak} Hari Beruntun
               </motion.div>
             )}
           </div>
         )}
       </div>
 
-      {/* Search */}
-      <div className="hidden md:flex items-center gap-2 bg-bg-section rounded-lg px-3 py-2 w-56">
-        <Search size={15} className="text-text-light" />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="bg-transparent text-sm font-inter text-text-primary placeholder-text-light outline-none w-full"
-        />
-      </div>
 
       {/* Bell */}
       <div className="relative">
@@ -63,12 +54,12 @@ export const TopBar: React.FC<TopBarProps> = ({ title }) => {
             className="absolute right-0 mt-2 w-72 bg-bg-surface rounded-xl shadow-card-hover border border-border z-50 overflow-hidden"
           >
             <div className="px-4 py-3 border-b border-border">
-              <p className="font-bold text-base text-text-primary uppercase tracking-widest">Notifications</p>
+              <p className="font-bold text-base text-text-primary uppercase tracking-widest">Notifikasi</p>
             </div>
             {[
-              { msg: 'Marcus Reid confirmed your session', time: '2h ago' },
-              { msg: 'Session tomorrow at 17:00 — reminder', time: '5h ago' },
-              { msg: 'New trainer available: Lena Fischer', time: '1d ago' },
+              { msg: 'Marcus Reid mengonfirmasi sesi Anda', time: '2 jam yang lalu' },
+              { msg: 'Sesi besok jam 17:00 — pengingat', time: '5 jam yang lalu' },
+              { msg: 'Pelatih baru tersedia: Lena Fischer', time: '1 hari yang lalu' },
             ].map((n, i) => (
               <div key={i} className="px-4 py-3 hover:bg-bg-section transition-colors border-b border-border last:border-0">
                 <p className="text-sm font-inter text-text-primary">{n.msg}</p>

@@ -8,7 +8,9 @@ export const ensureDataIntegrity = mutation({
     const userNames = [
       "Echris", "Vena", "Larry", "Franklin", "Onco", 
       "Niha", "Inyo", "Josh", "Jay", "Alex", 
-      "Daniel", "Muti", "Cheril", "Injil", "Arlan"
+      "Daniel", "Muti", "Cheril", "Injil", "Arlan",
+      "Budi", "Siti", "Andi", "Dewi", "Rian",
+      "Lina", "Agus", "Maya", "Rizky", "Putri"
     ];
 
     const userIds = [];
@@ -54,6 +56,16 @@ export const ensureDataIntegrity = mutation({
       { name: 'Sofia Reyes', specialty: 'Cardio',   rating: 4.8, sessions: 290, rate: 90,  bio: 'Endurance and VO2 max expert specializing in HIIT.' },
       { name: 'Jake Torres', specialty: 'Cutting',  rating: 4.7, sessions: 280, rate: 110, bio: 'Body recomposition specialist and nutrition advisor.' },
       { name: 'Elena Vance', specialty: 'Bulking',  rating: 4.9, sessions: 150, rate: 120, bio: 'Science-based hyperthrophy specialist for elite athletes.' },
+      { name: 'Sarah Jenkins', specialty: 'Strength', rating: 4.8, sessions: 210, rate: 95, bio: 'Specialist in functional strength and posture correction.' },
+      { name: 'David Miller', specialty: 'Bulking', rating: 4.9, sessions: 420, rate: 130, bio: 'Former pro bodybuilder focusing on maximum muscle gain.' },
+      { name: 'Chloe Chen', specialty: 'Cardio', rating: 4.7, sessions: 180, rate: 85, bio: 'High-energy instructor for interval and metabolic conditioning.' },
+      { name: 'Ryan Cooper', specialty: 'Strength', rating: 4.6, sessions: 310, rate: 105, bio: 'Expert in olympic weightlifting and explosive power.' },
+      { name: 'Maya Patel', specialty: 'Cardio', rating: 4.9, sessions: 500, rate: 110, bio: 'Renowned endurance coach with a background in marathons.' },
+      { name: 'Thomas Wright', specialty: 'Cutting', rating: 4.8, sessions: 240, rate: 115, bio: 'Boxing and metabolic conditioning for fat loss.' },
+      { name: 'Isabella Rossi', specialty: 'Strength', rating: 4.7, sessions: 190, rate: 90, bio: 'Combining calisthenics and traditional strength training.' },
+      { name: 'Liam O\'Connor', specialty: 'Bulking', rating: 4.8, sessions: 270, rate: 125, bio: 'Hypertrophy coach focusing on compound movements.' },
+      { name: 'Sophia Kim', specialty: 'Cutting', rating: 4.9, sessions: 330, rate: 100, bio: 'Specialist in aesthetic conditioning and diet optimization.' },
+      { name: 'Lucas Silva', specialty: 'Cardio', rating: 4.6, sessions: 160, rate: 80, bio: 'Focusing on athletic speed, agility, and stamina.' },
     ];
 
     const trainers = [];

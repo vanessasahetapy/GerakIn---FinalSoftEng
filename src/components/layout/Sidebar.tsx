@@ -13,21 +13,21 @@ import {
 interface NavItem { label: string; path: string; icon: React.ReactNode; }
 
 const userNav: NavItem[] = [
-  { label: 'Dashboard',  path: '/user/dashboard', icon: <LayoutDashboard size={18} /> },
-  { label: 'Book',       path: '/user/booking',   icon: <BookOpen size={18} />        },
-  { label: 'Schedule',   path: '/user/schedule',  icon: <Calendar size={18} />        },
-  { label: 'Habits',     path: '/user/habits',    icon: <Heart size={18} />           },
-  { label: 'History',    path: '/user/history',   icon: <Clock size={18} />           },
+  { label: 'Dasbor',     path: '/user/dashboard', icon: <LayoutDashboard size={18} /> },
+  { label: 'Pesan',      path: '/user/booking',   icon: <BookOpen size={18} />        },
+  { label: 'Jadwal',     path: '/user/schedule',  icon: <Calendar size={18} />        },
+  { label: 'Kebiasaan',  path: '/user/habits',    icon: <Heart size={18} />           },
+  { label: 'Riwayat',    path: '/user/history',   icon: <Clock size={18} />           },
 ];
 const trainerNav: NavItem[] = [
-  { label: 'Dashboard',    path: '/trainer/dashboard',    icon: <LayoutDashboard size={18} /> },
-  { label: 'Requests',     path: '/trainer/requests',     icon: <ClipboardList size={18} />   },
-  { label: 'Availability', path: '/trainer/availability', icon: <CalendarCheck size={18} />   },
-  { label: 'Clients',      path: '/trainer/clients',      icon: <Users size={18} />           },
+  { label: 'Dasbor',      path: '/trainer/dashboard',    icon: <LayoutDashboard size={18} /> },
+  { label: 'Permintaan',  path: '/trainer/requests',     icon: <ClipboardList size={18} />   },
+  { label: 'Ketersediaan', path: '/trainer/availability', icon: <CalendarCheck size={18} />   },
+  { label: 'Klien',       path: '/trainer/clients',      icon: <Users size={18} />           },
 ];
 const adminNav: NavItem[] = [
-  { label: 'Dashboard',  path: '/admin/dashboard',  icon: <LayoutDashboard size={18} /> },
-  { label: 'Analytics',  path: '/admin/analytics',  icon: <BarChart2 size={18} />       },
+  { label: 'Dasbor',     path: '/admin/dashboard',  icon: <LayoutDashboard size={18} /> },
+  { label: 'Analitik',   path: '/admin/analytics',  icon: <BarChart2 size={18} />       },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -57,37 +57,12 @@ export const Sidebar: React.FC = () => {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
               className="font-bold text-lg text-white tracking-tight uppercase font-barlow italic"
             >
-              FitHabit <span className="text-accent">Trainer</span>
+              Gerak<span className="text-accent">In</span>
             </motion.span>
           )}
         </div>
-        
-        {!collapsed && (
-          <button
-            onClick={() => setCollapsed(true)}
-            className="ml-auto text-text-light hover:text-white transition-colors p-1.5 rounded-lg bg-bg-surface border border-border"
-          >
-            <ChevronLeft size={16} />
-          </button>
-        )}
-        {collapsed && (
-          <button
-            onClick={() => setCollapsed(false)}
-            className="mx-auto mt-4 text-text-light hover:text-white transition-colors p-1.5 rounded-lg bg-bg-surface border border-border"
-          >
-            <ChevronRight size={16} />
-          </button>
-        )}
       </div>
 
-      {/* Role badge */}
-      {!collapsed && (
-        <div className="px-6 pt-6 pb-2">
-          <span className="inline-block bg-accent/20 text-accent text-[10px] font-bold px-2 py-1 rounded uppercase tracking-[0.2em] border border-accent/20">
-            {role} Interface
-          </span>
-        </div>
-      )}
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-6 flex flex-col gap-1 overflow-y-auto scrollbar-hide">
@@ -144,7 +119,7 @@ export const Sidebar: React.FC = () => {
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-light hover:bg-danger/10 hover:text-red-400 transition-all duration-150 w-full text-sm font-bold"
         >
           <LogOut size={18} className="shrink-0" />
-          {!collapsed && <span>System Logout</span>}
+          {!collapsed && <span>Keluar Sistem</span>}
         </button>
       </div>
     </motion.aside>

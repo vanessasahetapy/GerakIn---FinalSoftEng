@@ -13,9 +13,9 @@ import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import { useAuthStore } from '../../store/authStore';
 
-const STEPS = ['Choose Trainer', 'Set Details', 'Confirm'];
+const STEPS = ['Pilih Pelatih', 'Detail Sesi', 'Konfirmasi'];
 const TYPES = ['Strength','Cardio','Bulking','Cutting'];
-const FILTERS = ['All','Cardio','Strength','Bulking','Cutting'];
+const FILTERS = ['Semua','Cardio','Strength','Bulking','Cutting'];
 
 export const BookingPage: React.FC = () => {
   const { currentUser } = useAuthStore();
@@ -83,12 +83,12 @@ export const BookingPage: React.FC = () => {
           <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle size={40} className="text-white"/>
           </div>
-          <h2 className="font-barlow font-extrabold text-3xl text-text-primary uppercase mb-2">Booking Submitted!</h2>
-          <p className="text-text-secondary font-inter mb-4">Your session with <strong>{selectedTrainer?.name}</strong> on <strong>{selectedDate}</strong> at <strong>{selectedTime}</strong> is pending confirmation.</p>
+          <h2 className="font-barlow font-extrabold text-3xl text-text-primary uppercase mb-2">Pemesanan Berhasil!</h2>
+          <p className="text-text-secondary font-inter mb-4">Sesi Anda dengan <strong>{selectedTrainer?.name}</strong> pada tanggal <strong>{selectedDate}</strong> pukul <strong>{selectedTime}</strong> sedang menunggu konfirmasi.</p>
           <Badge status="PENDING" className="mb-6"/>
           <div className="flex gap-3 justify-center">
-            <Button variant="primary" onClick={handleReset}>Book Another</Button>
-            <Button variant="ghost"   onClick={() => window.location.href='/user/schedule'}>View Schedule</Button>
+            <Button variant="primary" onClick={handleReset}>Pesan Lagi</Button>
+            <Button variant="ghost"   onClick={() => window.location.href='/user/schedule'}>Lihat Jadwal</Button>
           </div>
         </motion.div>
       </div>
@@ -98,8 +98,8 @@ export const BookingPage: React.FC = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="page-title mb-2" style={{fontSize:'2.5rem'}}>Book a Session</h1>
-        <p className="text-text-secondary font-inter text-sm">Follow the steps to book your trainer.</p>
+        <h1 className="page-title mb-2" style={{fontSize:'2.5rem'}}>Pesan Sesi</h1>
+        <p className="text-text-secondary font-inter text-sm">Ikuti langkah-langkah untuk memesan pelatih Anda.</p>
       </div>
 
       <StepIndicator steps={STEPS} current={step} />
@@ -126,7 +126,7 @@ export const BookingPage: React.FC = () => {
             </div>
             <div className="mt-8 flex justify-end">
               <Button disabled={!selectedTrainerId} onClick={() => setStep(2)}>
-                Continue →
+                Lanjut →
               </Button>
             </div>
           </motion.div>
@@ -137,7 +137,7 @@ export const BookingPage: React.FC = () => {
           <motion.div key="step2" initial={{opacity:0,x:30}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-30}}
             className="grid lg:grid-cols-3 gap-6">
             <Card accent className="lg:col-span-1 h-fit">
-              <p className="card-label mb-3">Selected Trainer</p>
+              <p className="card-label mb-3">Pelatih Terpilih</p>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center text-white font-barlow font-bold text-lg">
                   {selectedTrainer.initials}
@@ -148,33 +148,33 @@ export const BookingPage: React.FC = () => {
                 </div>
               </div>
               <p className="text-sm text-text-secondary mb-4">{selectedTrainer.bio}</p>
-              <p className="font-barlow font-extrabold text-2xl text-accent">${selectedTrainer.rate}<span className="text-sm font-inter font-normal text-text-light">/hr</span></p>
+              <p className="font-barlow font-extrabold text-2xl text-accent">Rp {selectedTrainer.rate.toLocaleString()}rb<span className="text-sm font-inter font-normal text-text-light">/jam</span></p>
             </Card>
 
             <div className="lg:col-span-2 space-y-6">
               <Card hover={false}>
-                <p className="card-label mb-3">Workout Type</p>
+                <p className="card-label mb-3">Jenis Latihan</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {TYPES.map(t => (
                     <button key={t} onClick={() => setWorkoutType(t)}
                       className={workoutType===t ? 'pill-active' : 'pill-inactive'}>{t}</button>
                   ))}
                 </div>
-                <p className="card-label mb-3">Select Date</p>
+                <p className="card-label mb-3">Pilih Tanggal</p>
                 <WeekCalendar selectedDate={selectedDate} onSelect={d => setSelectedDate(d)} />
               </Card>
               {selectedDate && (
                 <Card hover={false}>
-                  <p className="card-label mb-4">Select Time</p>
+                  <p className="card-label mb-4">Pilih Waktu</p>
                   <TimeSlotGrid selectedTime={selectedTime} onSelect={t => setSelectedTime(t)} />
                 </Card>
               )}
             </div>
 
             <div className="lg:col-span-3 flex justify-between">
-              <Button variant="ghost" onClick={() => setStep(1)}>← Back</Button>
+              <Button variant="ghost" onClick={() => setStep(1)}>← Kembali</Button>
               <Button disabled={!selectedDate || !selectedTime} onClick={() => setStep(3)}>
-                Review Booking →
+                Tinjau Pesanan →
               </Button>
             </div>
           </motion.div>
@@ -185,16 +185,16 @@ export const BookingPage: React.FC = () => {
           <motion.div key="step3" initial={{opacity:0,x:30}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-30}}
             className="max-w-lg mx-auto space-y-6">
             <Card accent>
-              <h2 className="font-barlow font-bold text-2xl text-text-primary uppercase mb-6">Booking Summary</h2>
+              <h2 className="font-barlow font-bold text-2xl text-text-primary uppercase mb-6">Ringkasan Pemesanan</h2>
               <div className="space-y-4 text-sm font-inter">
                 {[
-                  { l:'Trainer',      v: selectedTrainer.name    },
-                  { l:'Specialty',    v: selectedTrainer.specialty},
-                  { l:'Workout Type', v: workoutType },
-                  { l:'Date',         v: selectedDate      },
-                  { l:'Time',         v: selectedTime      },
-                  { l:'Duration',     v: '60 minutes'             },
-                  { l:'Rate',         v: `$${selectedTrainer.rate}/hr` },
+                  { l:'Pelatih',      v: selectedTrainer.name    },
+                  { l:'Spesialisasi',  v: selectedTrainer.specialty},
+                  { l:'Jenis Latihan', v: workoutType },
+                  { l:'Tanggal',      v: selectedDate      },
+                  { l:'Waktu',        v: selectedTime      },
+                  { l:'Durasi',       v: '60 menit'             },
+                  { l:'Tarif',        v: `Rp ${selectedTrainer.rate.toLocaleString()}rb/jam` },
                 ].map(row => (
                   <div key={row.l} className="flex justify-between py-2 border-b border-border last:border-0">
                     <span className="text-text-secondary">{row.l}</span>
@@ -204,9 +204,9 @@ export const BookingPage: React.FC = () => {
               </div>
             </Card>
             <div className="flex gap-3">
-              <Button variant="ghost" onClick={() => setStep(2)} className="flex-1 justify-center">← Back</Button>
+              <Button variant="ghost" onClick={() => setStep(2)} className="flex-1 justify-center">← Kembali</Button>
               <Button onClick={handleConfirm} disabled={isSubmitting} className="flex-1 justify-center" size="lg">
-                {isSubmitting ? 'Confirming...' : 'Confirm Booking ✓'}
+                {isSubmitting ? 'Mengonfirmasi...' : 'Konfirmasi Pesanan ✓'}
               </Button>
             </div>
           </motion.div>

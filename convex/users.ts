@@ -2,6 +2,36 @@
 import { v } from 'convex/values';
 import { query, mutation } from './_generated/server';
 
+export const register = mutation({
+  args: {
+    name: v.string(),
+    email: v.string(),
+    password: v.string(),
+  },
+  handler: async (ctx, args) => {
+    // Check if user already exists
+    const existingUser = await ctx.db
+      .query('users')
+      .withIndex('by_name', (q) => q.eq('name', args.name))
+      .first();
+    
+    if (existingUser) {
+      throw new Error('User with this name already exists');
+    }
+
+    const userId = await ctx.db.insert('users', {
+      name: args.name,
+      email: args.email,
+      passwordHash: args.password, // In a real app, use hashing!
+      role: 'user',
+      createdAt: Date.now(),
+      streak: 0,
+    });
+
+    return userId;
+  },
+});
+
 export const login = mutation({
   args: { 
     nameOrEmail: v.string(), 

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay } from 'date-fns';
+import { id } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, Clock, Loader2 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { Badge } from '../../components/ui/Badge';
@@ -32,7 +33,7 @@ export const SchedulePage: React.FC = () => {
     const ss = (bookings || []).filter(b => b.date === dateStr);
     if (!ss.length) return null;
     if (ss.some(s => s.status === 'ACCEPTED')) return 'bg-accent';
-    if (ss.some(s => s.status === 'PENDING'))  return 'bg-amber-500'; // Changed color to match theme better
+    if (ss.some(s => s.status === 'PENDING'))  return 'bg-amber-500';
     return 'bg-text-light';
   };
 
@@ -46,11 +47,11 @@ export const SchedulePage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="page-title" style={{fontSize:'2.5rem'}}>My Schedule</h1>
+      <h1 className="page-title" style={{fontSize:'2.5rem'}}>Jadwal Saya</h1>
       <div className="grid lg:grid-cols-3 gap-6">
         <Card className="lg:col-span-2" hover={false}>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="font-barlow font-bold text-2xl text-text-primary uppercase">{format(currentMonth,'MMMM yyyy')}</h2>
+            <h2 className="font-barlow font-bold text-2xl text-text-primary uppercase">{format(currentMonth,'MMMM yyyy', { locale: id })}</h2>
             <div className="flex gap-2">
               <button onClick={() => setCurrentMonth(m => addDays(startOfMonth(m), -1))}
                 className="w-8 h-8 rounded-lg bg-bg-section hover:bg-accent-light hover:text-accent flex items-center justify-center transition-colors">
@@ -63,7 +64,7 @@ export const SchedulePage: React.FC = () => {
             </div>
           </div>
           <div className="grid grid-cols-7 mb-2">
-            {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
+            {['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(d => (
               <div key={d} className="text-center text-xs font-inter font-semibold text-text-light uppercase py-2">{d}</div>
             ))}
           </div>
@@ -90,12 +91,12 @@ export const SchedulePage: React.FC = () => {
         </Card>
 
         <Card hover={false} className="flex flex-col">
-          <p className="card-label mb-4 uppercase tracking-widest">{format(selectedDate,'EEEE, MMM d')}</p>
+          <p className="card-label mb-4 uppercase tracking-widest">{format(selectedDate,'EEEE, d MMM', { locale: id })}</p>
           {sessionsForSelected.length === 0 ? (
             <div className="text-center py-20 bg-bg-section/30 rounded-2xl border border-dashed border-border flex flex-col items-center justify-center">
               <Clock size={32} className="text-text-light mb-3 opacity-50"/>
-              <p className="text-text-secondary font-inter text-sm mb-4">No sessions on this day.</p>
-              <Button size="sm" onClick={() => window.location.href='/user/booking'}>Book Now</Button>
+              <p className="text-text-secondary font-inter text-sm mb-4">Tidak ada sesi pada hari ini.</p>
+              <Button size="sm" onClick={() => window.location.href='/user/booking'}>Pesan Sekarang</Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -108,15 +109,15 @@ export const SchedulePage: React.FC = () => {
                         <Badge status={s.status}/>
                       </div>
                       <p className="text-xs text-text-secondary font-inter font-medium opacity-70">
-                        {s.workoutType} · {s.time} · {s.duration}min
+                        {s.workoutType} · {s.time} · {s.duration} menit
                       </p>
                       
                       <div className="flex gap-4 mt-6 pt-4 border-t border-border/50">
                         <button className="text-[10px] font-bold text-text-light uppercase tracking-widest hover:text-danger transition-colors">
-                           Cancel
+                           Batalkan
                         </button>
                         <button className="text-[10px] font-bold text-accent uppercase tracking-widest hover:underline">
-                           Reschedule
+                           Jadwalkan Ulang
                         </button>
                       </div>
                    </div>

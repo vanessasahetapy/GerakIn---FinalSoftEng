@@ -12,10 +12,10 @@ interface TrainerCardProps {
 }
 
 const specialtyColors: Record<string, string> = {
-  Strength: 'bg-accent-light text-accent',
-  Cardio:   'bg-blue-50 text-blue-600',
-  Bulking:  'bg-amber-50 text-amber-600',
-  Cutting:  'bg-green-50 text-green-600',
+  Strength: 'bg-accent/20 text-accent',
+  Cardio:   'bg-blue-500/20 text-blue-400',
+  Bulking:  'bg-amber-500/20 text-amber-400',
+  Cutting:  'bg-green-500/20 text-green-400',
 };
 
 export const TrainerCard: React.FC<TrainerCardProps> = ({ trainer, selected, onSelect }) => {
@@ -23,8 +23,8 @@ export const TrainerCard: React.FC<TrainerCardProps> = ({ trainer, selected, onS
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.2 }}
-      className={`bg-white rounded-xl border-2 shadow-card p-5 flex flex-col gap-4 transition-all duration-200 cursor-pointer ${
-        selected ? 'border-accent shadow-card-hover' : 'border-border hover:border-accent'
+      className={`bg-bg-surface rounded-xl border shadow-card p-5 flex flex-col gap-4 transition-all duration-200 cursor-pointer ${
+        selected ? 'border-accent shadow-card-hover' : 'border-border/40 hover:border-accent'
       }`}
       onClick={() => onSelect(trainer)}
     >
@@ -53,11 +53,11 @@ export const TrainerCard: React.FC<TrainerCardProps> = ({ trainer, selected, onS
           <span className="font-inter font-semibold text-sm text-text-primary">{trainer.rating}</span>
           <span className="text-xs text-text-light">({trainer.sessions})</span>
         </div>
-        <span className="font-barlow font-bold text-lg text-accent">${trainer.rate}/hr</span>
+        <span className="font-barlow font-bold text-lg text-accent">Rp {trainer.rate.toLocaleString()}rb/jam</span>
       </div>
 
       <Button variant={selected ? 'primary' : 'ghost'} size="sm" className="w-full justify-center" onClick={() => onSelect(trainer)}>
-        {selected ? 'Selected ✓' : 'Select Trainer'}
+        {selected ? 'Terpilih ✓' : 'Pilih Pelatih'}
       </Button>
     </motion.div>
   );

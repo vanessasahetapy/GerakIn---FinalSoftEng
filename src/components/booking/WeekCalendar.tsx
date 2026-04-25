@@ -2,6 +2,7 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { addDays, format, startOfWeek, isSameDay } from 'date-fns';
+import { id } from 'date-fns/locale';
 
 interface WeekCalendarProps {
   selectedDate: string;
@@ -33,12 +34,12 @@ export const WeekCalendar: React.FC<WeekCalendarProps> = ({
             className={clsx(
               'flex flex-col items-center gap-1 px-3 py-3 rounded-xl min-w-[56px] border-2 transition-all duration-150',
               isSelected && 'bg-accent border-accent text-white',
-              !isSelected && !isPast && 'bg-white border-border text-text-primary hover:border-accent',
-              isPast && 'bg-bg-section border-bg-section text-text-light cursor-not-allowed opacity-60',
+              !isSelected && !isPast && 'bg-bg-surface/50 border-border/40 text-text-primary hover:border-accent hover:bg-bg-surface',
+              isPast && 'bg-bg-section/30 border-transparent text-text-muted cursor-not-allowed opacity-40',
             )}
           >
             <span className="text-xs font-inter font-medium uppercase opacity-70">
-              {format(day, 'EEE')}
+              {format(day, 'EEE', { locale: id })}
             </span>
             <span className={clsx('font-barlow font-bold text-xl leading-none', isToday && !isSelected && 'text-accent')}>
               {format(day, 'd')}

@@ -8,12 +8,13 @@ import { useQuery } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
 import { useAuthStore } from '../../store/authStore';
 
-const FILTERS = ['All', 'Strength', 'Cardio', 'Bulking', 'Cutting'];
+const FILTERS = ['Semua', 'Strength', 'Cardio', 'Bulking', 'Cutting'];
 
 export const HistoryPage: React.FC = () => {
   const { currentUser } = useAuthStore();
   const bookings = useQuery(api.bookings.getUserBookings, currentUser ? { userId: currentUser.id as any } : "skip");
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState('Semua');
+  const [searchQuery, setSearchQuery] = useState('');
 
   if (!bookings) {
     return (
@@ -23,23 +24,26 @@ export const HistoryPage: React.FC = () => {
     );
   }
 
-  const filteredBookings = activeFilter === 'All' 
-    ? bookings 
-    : bookings.filter(b => b.workoutType === activeFilter);
+  const filteredBookings = bookings.filter(b => {
+    const matchesFilter = activeFilter === 'Semua' || b.workoutType === activeFilter;
+    const matchesSearch = b.trainerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      b.workoutType.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   const acceptedBookings = bookings.filter(b => b.status === 'ACCEPTED');
 
   const stats = [
-    { label: 'Total Sessions', value: acceptedBookings.length },
-    { label: 'Total Hours', value: Math.floor(acceptedBookings.reduce((acc, b) => acc + (b.duration || 60), 0) / 60) },
-    { label: 'Trainers Met', value: new Set(bookings.map(b => b.trainerId)).size },
+    { label: 'Total Sesi', value: acceptedBookings.length },
+    { label: 'Total Jam', value: Math.floor(acceptedBookings.reduce((acc, b) => acc + (b.duration || 60), 0) / 60) },
+    { label: 'Pelatih Ditemui', value: new Set(bookings.map(b => b.trainerId)).size },
   ];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="page-title mb-2" style={{ fontSize: '2.5rem' }}>Workout History</h1>
-        <p className="text-text-secondary font-inter text-sm">Review your journey and track your progress over time.</p>
+        <h1 className="page-title mb-2" style={{ fontSize: '2.5rem' }}>Riwayat Latihan</h1>
+        <p className="text-text-secondary font-inter text-sm">Tinjau perjalanan Anda dan lacak kemajuan Anda dari waktu ke waktu.</p>
       </div>
 
       {/* Stats Summary */}
@@ -57,8 +61,8 @@ export const HistoryPage: React.FC = () => {
         <div className="p-6 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex flex-wrap gap-2">
             {FILTERS.map(f => (
-              <button 
-                key={f} 
+              <button
+                key={f}
                 onClick={() => setActiveFilter(f)}
                 className={activeFilter === f ? 'pill-active' : 'pill-inactive'}
               >
@@ -67,13 +71,16 @@ export const HistoryPage: React.FC = () => {
             ))}
           </div>
           <div className="flex gap-2">
-             <div className="flex items-center gap-2 bg-bg-section px-3 py-2 rounded-lg border border-border/50">
-                <Search size={16} className="text-text-light" />
-                <input type="text" placeholder="Search sessions..." className="bg-transparent border-none outline-none text-sm font-inter w-32 text-text-primary" />
-             </div>
-             <button className="p-2 bg-bg-section rounded-lg text-text-secondary hover:text-accent transition-colors border border-border/50">
-                <Download size={18} />
-             </button>
+            <div className="flex items-center gap-2 bg-bg-section px-3 py-2 rounded-lg border border-border/50 focus-within:border-accent/50 transition-all">
+              <Search size={16} className="text-text-light" />
+              <input
+                type="text"
+                placeholder="Cari sesi..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-transparent border-none outline-none text-sm font-inter w-40 text-text-primary"
+              />
+            </div>
           </div>
         </div>
 
@@ -81,21 +88,21 @@ export const HistoryPage: React.FC = () => {
           <table className="w-full text-left font-inter">
             <thead className="bg-bg-section/50 text-[10px] uppercase tracking-widest text-text-secondary font-bold">
               <tr>
-                <th className="px-6 py-5">Date</th>
-                <th className="px-6 py-5">Trainer</th>
-                <th className="px-6 py-5">Type</th>
-                <th className="px-6 py-5">Duration</th>
+                <th className="px-6 py-5">Tanggal</th>
+                <th className="px-6 py-5">Pelatih</th>
+                <th className="px-6 py-5">Tipe</th>
+                <th className="px-6 py-5">Durasi</th>
                 <th className="px-6 py-5">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {filteredBookings.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-20 text-text-secondary italic">No sessions found for this filter.</td>
+                  <td colSpan={5} className="text-center py-20 text-text-secondary italic">Tidak ada sesi ditemukan.</td>
                 </tr>
               ) : (
                 filteredBookings.map((booking, i) => (
-                  <motion.tr 
+                  <motion.tr
                     key={booking._id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -115,7 +122,7 @@ export const HistoryPage: React.FC = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-text-secondary">
-                      {booking.duration || 60} min
+                      {booking.duration || 60} menit
                     </td>
                     <td className="px-6 py-4">
                       <Badge status={booking.status} />
