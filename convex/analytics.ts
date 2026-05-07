@@ -258,7 +258,7 @@ export const getTrainerStats = query({
   args: { trainerId: v.id('users') },
   handler: async (ctx, args) => {
     const trainer = await ctx.db.get(args.trainerId);
-    if (!trainer || !('rating' in trainer)) return null;
+    if (!trainer) return null;
     const bookings = await ctx.db
       .query('bookings')
       .withIndex('by_trainer', q => q.eq('trainerId', args.trainerId))

@@ -11,8 +11,12 @@
 import type * as ai from "../ai.js";
 import type * as analytics from "../analytics.js";
 import type * as bookings from "../bookings.js";
+import type * as check_xai_models from "../check_xai_models.js";
 import type * as habits from "../habits.js";
 import type * as list_models from "../list_models.js";
+import type * as messages from "../messages.js";
+import type * as notifications from "../notifications.js";
+import type * as ratings from "../ratings.js";
 import type * as seed from "../seed.js";
 import type * as test_ai from "../test_ai.js";
 import type * as trainers from "../trainers.js";
@@ -28,8 +32,12 @@ declare const fullApi: ApiFromModules<{
   ai: typeof ai;
   analytics: typeof analytics;
   bookings: typeof bookings;
+  check_xai_models: typeof check_xai_models;
   habits: typeof habits;
   list_models: typeof list_models;
+  messages: typeof messages;
+  notifications: typeof notifications;
+  ratings: typeof ratings;
   seed: typeof seed;
   test_ai: typeof test_ai;
   trainers: typeof trainers;

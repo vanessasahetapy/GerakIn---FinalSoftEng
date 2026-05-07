@@ -7,6 +7,7 @@ export const register = mutation({
     name: v.string(),
     email: v.string(),
     password: v.string(),
+    role: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     // Check if user already exists
@@ -23,7 +24,7 @@ export const register = mutation({
       name: args.name,
       email: args.email,
       passwordHash: args.password, // In a real app, use hashing!
-      role: 'user',
+      role: args.role || 'user',
       createdAt: Date.now(),
       streak: 0,
     });
@@ -84,6 +85,7 @@ export const getTrainers = query({
       rate: t.rate,
       bio: t.bio,
       sessions: t.sessions,
+      tags: t.tags || [],
       initials: t.name.split(' ').map(n => n[0]).join('')
     }));
   },
@@ -124,5 +126,48 @@ export const getTrainerClients = query({
     }
     
     return clients;
+  },
+});
+
+export const getUserById = query({
+  args: { id: v.id('users') },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
+  },
+});
+
+export const updateUserProfile = mutation({
+  args: {
+    userId: v.id('users'),
+    weight: v.optional(v.number()),
+    height: v.optional(v.number()),
+    goals: v.optional(v.string()),
+    fitnessLevel: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.userId, {
+      weight: args.weight,
+      height: args.height,
+      goals: args.goals,
+      fitnessLevel: args.fitnessLevel,
+    });
+  },
+});
+
+export const updateTrainerProfile = mutation({
+  args: {
+    trainerId: v.id('users'),
+    specialty: v.string(),
+    bio: v.string(),
+    rate: v.number(),
+    tags: v.array(v.string()),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.trainerId, {
+      specialty: args.specialty,
+      bio: args.bio,
+      rate: args.rate,
+      tags: args.tags,
+    });
   },
 });
